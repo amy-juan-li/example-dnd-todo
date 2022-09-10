@@ -4,13 +4,21 @@ import { Status, Todo, TodosStatus } from '../models/todo'
 import TodoItem from './todoitem'
 
 interface Props {
-  todos: Todo[]
-  setTodos: React.Dispatch<React.SetStateAction<Todo[]>>
+  backlogTodos: Todo[]
+  setBacklogTodos: React.Dispatch<React.SetStateAction<Todo[]>>
+  activeTodos: Todo[]
+  setActiveTodos: React.Dispatch<React.SetStateAction<Todo[]>>
   completedTodos: Todo[]
   setCompletedTodos: React.Dispatch<React.SetStateAction<Todo[]>>
 }
 
-const Todos: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedTodos }) =>
+const Todos: React.FC<Props> = ({
+  backlogTodos,
+  setBacklogTodos,
+  activeTodos,
+  setActiveTodos,
+  completedTodos,
+  setCompletedTodos }) =>
   <div className='grid grid-cols-1 w-full gap-6 mt-4 lg:grid-cols-3'>
 
     <Droppable droppableId={TodosStatus.BacklogTodos}>
@@ -23,13 +31,13 @@ const Todos: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedT
             <span className='text-white text-2xl font-semibold'>
               Backlog
             </span>
-            {todos?.map((todo, index) =>
+            {backlogTodos?.map((todo, index) =>
               <TodoItem
                 index={index}
                 key={todo?.id}
                 todo={todo}
-                todos={todos}
-                setTodos={setTodos} />
+                todos={backlogTodos}
+                setTodos={setBacklogTodos} />
             )}
           </div>
         )}
@@ -37,20 +45,20 @@ const Todos: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedT
     <Droppable droppableId={TodosStatus.ActiveTodos}>
       {
         (droppableProvided, droppableSnapshot) => (
-          <div className='bg-blue-400 px-5 py-3 rounded-md'
+          <div className={`bg-blue-400 px-5 py-3 rounded-md ${droppableSnapshot.isDraggingOver ? 'opacity-80' : ''}`}
             ref={droppableProvided.innerRef}
             {...droppableProvided.droppableProps}
           >
             <span className='text-white text-2xl font-semibold'>
               Active
             </span>
-            {todos?.map((todo, index) =>
+            {activeTodos?.map((todo, index) =>
               <TodoItem
                 index={index}
                 key={todo?.id}
                 todo={todo}
-                todos={todos}
-                setTodos={setTodos}
+                todos={activeTodos}
+                setTodos={setActiveTodos}
               />
             )}
             {droppableProvided.placeholder}
@@ -72,8 +80,8 @@ const Todos: React.FC<Props> = ({ todos, setTodos, completedTodos, setCompletedT
                 index={index}
                 key={todo?.id}
                 todo={todo}
-                todos={todos}
-                setTodos={setTodos}
+                todos={completedTodos}
+                setTodos={setCompletedTodos}
               />
             )}
             {droppableProvided.placeholder}

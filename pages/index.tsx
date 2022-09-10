@@ -16,7 +16,8 @@ import styles from '../styles/Home.module.css'
 
 const Home: NextPage = () => {
   const [name, setName] = useState<string>('')
-  const [todos, setTodos] = useState<Todo[]>([])
+  const [backlogTodos, setBacklogTodos] = useState<Todo[]>([])
+  const [activeTodos, setActiveTodos] = useState<Todo[]>([])
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([])
 
   //  type Actions = 
@@ -50,7 +51,7 @@ const Home: NextPage = () => {
         status: Status.Backlog,
         isDone: false
       }
-      setTodos([...todos, newTodo])
+      setBacklogTodos([...backlogTodos, newTodo])
       setName('')
     }
   }
@@ -62,12 +63,13 @@ const Home: NextPage = () => {
       && destination.index === source.index)) return
 
     let add,
-      active = todos,
+      backlog = backlogTodos,
+      active = activeTodos,
       complete = completedTodos
 
     if (source.droppableId === TodosStatus.BacklogTodos) {
-      add = active[source.index]
-      active.splice(source.index, 1)
+      add = backlogTodos[source.index]
+      backlog.splice(source.index, 1)
     } else if (source.droppableId === TodosStatus.ActiveTodos) {
       add = active[source.index]
       active.splice(source.index, 1)
@@ -77,16 +79,16 @@ const Home: NextPage = () => {
     }
 
     if (destination.droppableId === TodosStatus.BacklogTodos) {
-      active.splice(destination.index, 0, add)
+      backlog.splice(destination.index, 0, add)
     } else if (destination.droppableId === TodosStatus.ActiveTodos) {
       active.splice(destination.index, 0, add)
     } else {
       complete.splice(destination.index, 0, add)
     }
 
+    setBacklogTodos(backlog)
+    setActiveTodos(active)
     setCompletedTodos(complete)
-    setTodos(active)
-
   }
 
 
@@ -106,8 +108,10 @@ const Home: NextPage = () => {
             addNewTodo={addNewTodo}
           />
           <Todos
-            todos={todos}
-            setTodos={setTodos}
+            backlogTodos={backlogTodos}
+            setBacklogTodos={setBacklogTodos}
+            activeTodos={activeTodos}
+            setActiveTodos={setActiveTodos}
             completedTodos={completedTodos}
             setCompletedTodos={setCompletedTodos}
           />
@@ -119,26 +123,26 @@ const Home: NextPage = () => {
 
 export default Home
 
-const initialData = {
-  tasks: {
-
-  },
-  columns: [
-    {
-      id: 'BacklogTasks',
-      title: 'Backlog',
-    },
-    {
-      id: 'ActiveTasks',
-      title: 'In progress',
-    },
-    {
-      id: 'ActiveTasks',
-      title: 'In progress',
-    },
-    {
-      id: 'CompletedTasks',
-      title: 'Done',
-    }
-  ]
-}
+//const initialData = {
+//  tasks: {
+//
+//  },
+//  columns: [
+//    {
+//      id: 'BacklogTasks',
+//      title: 'Backlog',
+//    },
+//    {
+//      id: 'ActiveTasks',
+//      title: 'In progress',
+//    },
+//    {
+//      id: 'ActiveTasks',
+//      title: 'In progress',
+//    },
+//    {
+//      id: 'CompletedTasks',
+//      title: 'Done',
+//    }
+//  ]
+//}
