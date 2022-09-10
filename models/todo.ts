@@ -22,3 +22,9 @@ export enum WeekDay {
   Satuday,
   Sunday
 }
+
+export enum TodosStatus {
+  BacklogTodos = 'BacklogTodos',
+  ActiveTodos = 'ActiveTodos',
+  CompletedTodos = 'CompletedTodos'
+}

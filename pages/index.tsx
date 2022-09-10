@@ -3,13 +3,14 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 
-import { DragDropContext, Draggable, Droppable, resetServerContext } from 'react-beautiful-dnd'
+import { DragDropContext, Draggable, Droppable, DropResult, resetServerContext } from 'react-beautiful-dnd'
+import Column from '../components/column'
 
 import InputField from '../components/inputfield'
 import TodoApp from '../components/todoapp'
 import Todos from '../components/todos'
 
-import { Status, Todo, WeekDay } from '../models/todo'
+import { Status, Todo, TodosStatus, WeekDay } from '../models/todo'
 import styles from '../styles/Home.module.css'
 
 
@@ -40,8 +41,6 @@ const Home: NextPage = () => {
   //
 
   const addNewTodo = (e: React.FormEvent) => {
-    console.log('add new ')
-    console.log(e)
     e.preventDefault()
     if (name) {
       const newTodo = {
@@ -56,10 +55,39 @@ const Home: NextPage = () => {
     }
   }
 
-  const onDragEndHandler = (result: any) => {
+  const onDragEndHandler = (result: DropResult) => {
     const { destination, source } = result
-  }
 
+    if (!destination || (destination.droppableId === source.droppableId
+      && destination.index === source.index)) return
+
+    let add,
+      active = todos,
+      complete = completedTodos
+
+    if (source.droppableId === TodosStatus.BacklogTodos) {
+      add = active[source.index]
+      active.splice(source.index, 1)
+    } else if (source.droppableId === TodosStatus.ActiveTodos) {
+      add = active[source.index]
+      active.splice(source.index, 1)
+    } else {
+      add = complete[source.index]
+      complete.splice(source.index, 1)
+    }
+
+    if (destination.droppableId === TodosStatus.BacklogTodos) {
+      active.splice(destination.index, 0, add)
+    } else if (destination.droppableId === TodosStatus.ActiveTodos) {
+      active.splice(destination.index, 0, add)
+    } else {
+      complete.splice(destination.index, 0, add)
+    }
+
+    setCompletedTodos(complete)
+    setTodos(active)
+
+  }
 
 
   return (
@@ -71,7 +99,7 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className='flex flex-col items-center  min-h-screen pt-10'>
-          <h2 className='text-4xl font-bold'>Taskify</h2>
+          <h2 className='text-4xl font-bold'>Action</h2>
           <InputField
             name={name}
             setName={setName}
@@ -83,17 +111,34 @@ const Home: NextPage = () => {
             completedTodos={completedTodos}
             setCompletedTodos={setCompletedTodos}
           />
-        </div>)
+        </div>
       </div>
     </DragDropContext>
   )
 }
 
-//export const getServerSideProps: GetServerSideProps = async ({ query }) => {
-//  resetServerContext()
-//  return {
-//    props: {}
-//  }
-//}
-
 export default Home
+
+const initialData = {
+  tasks: {
+
+  },
+  columns: [
+    {
+      id: 'BacklogTasks',
+      title: 'Backlog',
+    },
+    {
+      id: 'ActiveTasks',
+      title: 'In progress',
+    },
+    {
+      id: 'ActiveTasks',
+      title: 'In progress',
+    },
+    {
+      id: 'CompletedTasks',
+      title: 'Done',
+    }
+  ]
+}
