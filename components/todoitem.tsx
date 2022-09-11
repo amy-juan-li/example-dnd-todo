@@ -5,7 +5,7 @@ import { MdDone } from 'react-icons/md'
 import { Status, Todo } from '../models/todo'
 
 interface Props {
-  hasDoneIcon: boolean
+  hasDoneIcon?: boolean
   index: number
   todo: Todo
   todos: Todo[]

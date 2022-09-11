@@ -71,6 +71,7 @@ const Todos: React.FC<Props> = ({
                   todos={backlogTodos}
                   setTodos={setBacklogTodos} />
               )}
+              {droppableProvided.placeholder}
             </div>
           )}
       </Droppable>
@@ -143,6 +144,7 @@ const Todos: React.FC<Props> = ({
                   todos={monTodos}
                   setTodos={setMonTodos} />
               )}
+              {droppableProvided.placeholder}
             </div>
           )}
       </Droppable>
