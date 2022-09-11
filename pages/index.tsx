@@ -1,16 +1,13 @@
-import type { GetServerSideProps, NextPage } from 'next'
+import type { NextPage } from 'next'
 import Head from 'next/head'
-import Image from 'next/image'
-import { useState } from 'react'
+
+import { useEffect, useState } from 'react'
 
 import { FaCalendarWeek } from 'react-icons/fa'
 import { BsFillKanbanFill } from 'react-icons/bs'
-
-import { DragDropContext, Draggable, Droppable, DropResult, resetServerContext } from 'react-beautiful-dnd'
-import Column from '../components/column'
+import { DragDropContext, DropResult } from 'react-beautiful-dnd'
 
 import InputField from '../components/inputfield'
-import TodoApp from '../components/todoapp'
 import Todos from '../components/todos'
 
 import { Status, Todo, TodosStatus, TodosView, WeekDay, WeekDayTodos } from '../models/todo'
@@ -30,6 +27,60 @@ const Home: NextPage = () => {
   const [friTodos, setFriTodos] = useState<Todo[]>([])
   const [satTodos, setSatTodos] = useState<Todo[]>([])
   const [sunTodos, setSunTodos] = useState<Todo[]>([])
+
+  useEffect(() => {
+    let backlogTodos = window.localStorage.getItem('backlogTodos')
+    if (backlogTodos) {
+      let parsed = JSON.parse(backlogTodos)
+      setBacklogTodos(parsed)
+    }
+    let activeTodos = window.localStorage.getItem('activeTodos')
+    if (activeTodos) {
+      let parsed = JSON.parse(activeTodos)
+      setActiveTodos(parsed)
+    }
+    let completedTodos = window.localStorage.getItem('completedTodos')
+    if (completedTodos) {
+      let parsed = JSON.parse(completedTodos)
+      setCompletedTodos(parsed)
+    }
+
+    let monTodos = window.localStorage.getItem('monTodos')
+    if (monTodos) {
+      let parsed = JSON.parse(monTodos)
+      setMonTodos(parsed)
+    }
+    let tueTodos = window.localStorage.getItem('tueTodos')
+    if (tueTodos) {
+      let parsed = JSON.parse(tueTodos)
+      setTueTodos(parsed)
+    }
+    let wedTodos = window.localStorage.getItem('wedTodos')
+    if (wedTodos) {
+      let parsed = JSON.parse(wedTodos)
+      setWedTodos(parsed)
+    }
+    let thuTodos = window.localStorage.getItem('thuTodos')
+    if (thuTodos) {
+      let parsed = JSON.parse(thuTodos)
+      setThuTodos(parsed)
+    }
+    let friTodos = window.localStorage.getItem('friTodos')
+    if (friTodos) {
+      let parsed = JSON.parse(friTodos)
+      setFriTodos(parsed)
+    }
+    let satTodos = window.localStorage.getItem('satTodos')
+    if (satTodos) {
+      let parsed = JSON.parse(satTodos)
+      setSatTodos(parsed)
+    }
+    let sunTodos = window.localStorage.getItem('sunTodos')
+    if (sunTodos) {
+      let parsed = JSON.parse(sunTodos)
+      setSunTodos(parsed)
+    }
+  }, [])
 
   //  type Actions = 
   //    { type: 'add', payload: string }
@@ -52,7 +103,6 @@ const Home: NextPage = () => {
   //  const [state, dispatch] = useReducer(TodoReducer, [])
   //
 
-
   const addNewTodo = (e: React.FormEvent) => {
     e.preventDefault()
     if (name) {
@@ -63,13 +113,13 @@ const Home: NextPage = () => {
         status: Status.Backlog,
         isDone: false
       }
+
       setBacklogTodos([...backlogTodos, newTodo])
       setMonTodos([...monTodos, newTodo])
+
       setName('')
     }
   }
-
-
 
   const onDragEndHandler = (result: DropResult) => {
     const { destination, source } = result
@@ -133,8 +183,6 @@ const Home: NextPage = () => {
         break
     }
 
-
-
     if (add) {
       switch (destination.droppableId) {
         case TodosStatus.BacklogTodos:
@@ -148,25 +196,25 @@ const Home: NextPage = () => {
           break
 
         case WeekDayTodos.MonTodos:
-          monTodos.splice(destination.index, 0, add)
+          mon.splice(destination.index, 0, add)
           break
         case WeekDayTodos.TueTodos:
-          tueTodos.splice(destination.index, 0, add)
+          tue.splice(destination.index, 0, add)
           break
         case WeekDayTodos.WedTodos:
-          wedTodos.splice(destination.index, 0, add)
+          wed.splice(destination.index, 0, add)
           break
         case WeekDayTodos.ThuTodos:
-          thuTodos.splice(destination.index, 0, add)
+          thu.splice(destination.index, 0, add)
           break
         case WeekDayTodos.FriTodos:
-          friTodos.splice(destination.index, 0, add)
+          fri.splice(destination.index, 0, add)
           break
         case WeekDayTodos.SatTodos:
-          satTodos.splice(destination.index, 0, add)
+          sat.splice(destination.index, 0, add)
           break
         case WeekDayTodos.SunTodos:
-          sunTodos.splice(destination.index, 0, add)
+          sun.splice(destination.index, 0, add)
           break
       }
     }
@@ -174,6 +222,28 @@ const Home: NextPage = () => {
     setBacklogTodos(backlog)
     setActiveTodos(active)
     setCompletedTodos(complete)
+
+    setMonTodos(mon)
+    setTueTodos(tue)
+    setWedTodos(wed)
+    setThuTodos(thu)
+    setFriTodos(fri)
+    setSatTodos(sat)
+    setSunTodos(sun)
+
+    if (window) {
+      window.localStorage.setItem('backlogTodos', JSON.stringify(backlog))
+      window.localStorage.setItem('activeTodos', JSON.stringify(active))
+      window.localStorage.setItem('completedTodos', JSON.stringify(complete))
+
+      window.localStorage.setItem('monTodos', JSON.stringify(mon))
+      window.localStorage.setItem('tueTodos', JSON.stringify(tue))
+      window.localStorage.setItem('wedTodos', JSON.stringify(wed))
+      window.localStorage.setItem('thuTodos', JSON.stringify(thu))
+      window.localStorage.setItem('friTodos', JSON.stringify(fri))
+      window.localStorage.setItem('satTodos', JSON.stringify(sat))
+      window.localStorage.setItem('sunTodos', JSON.stringify(sun))
+    }
   }
 
 
@@ -233,28 +303,13 @@ const Home: NextPage = () => {
   )
 }
 
+Home.getInitialProps = async ({ req }) => {
+  console.log('req, ')
+  return {}
+}
+
 export default Home
 
-//const initialData = {
-//  tasks: {
-//
-//  },
-//  columns: [
-//    {
-//      id: 'BacklogTasks',
-//      title: 'Backlog',
-//    },
-//    {
-//      id: 'ActiveTasks',
-//      title: 'In progress',
-//    },
-//    {
-//      id: 'ActiveTasks',
-//      title: 'In progress',
-//    },
-//    {
-//      id: 'CompletedTasks',
-//      title: 'Done',
-//    }
-//  ]
-//}
+
+
+
