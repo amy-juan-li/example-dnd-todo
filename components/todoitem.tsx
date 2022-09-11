@@ -5,13 +5,14 @@ import { MdDone } from 'react-icons/md'
 import { Status, Todo } from '../models/todo'
 
 interface Props {
+  hasDoneIcon: boolean
   index: number
   todo: Todo
   todos: Todo[]
   setTodos: React.Dispatch<React.SetStateAction<Todo[]>>
 }
 
-const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
+const TodoItem: React.FC<Props> = ({ hasDoneIcon = true, index, todo, todos, setTodos }) => {
   const [edit, setEdit] = useState<boolean>(false)
   const [editName, setEditName] = useState<string>(todo.name)
 
@@ -85,9 +86,11 @@ const TodoItem: React.FC<Props> = ({ index, todo, todos, setTodos }) => {
               <span className='ml-[10px] text-[25px] cursor-pointer' onClick={handleDelete}>
                 <AiFillDelete />
               </span>
-              <span className='ml-[10px] text-[25px] cursor-pointer' onClick={handleDone}>
-                <MdDone />
-              </span>
+              {hasDoneIcon &&
+                <span className='ml-[10px] text-[25px] cursor-pointer' onClick={handleDone}>
+                  <MdDone />
+                </span>
+              }
             </div>
           </form>
         )

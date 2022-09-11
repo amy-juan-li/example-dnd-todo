@@ -14,17 +14,31 @@ export enum Status {
 }
 
 export enum WeekDay {
-  Monday,
-  Tuesday,
-  Wednesday,
-  Thursday,
-  Friday,
-  Satuday,
-  Sunday
+  Monday = 'Monday',
+  Tuesday = 'Tuesday',
+  Wednesday = 'Wednesday',
+  Thursday = 'Thursday',
+  Friday = 'Friday',
+  Satuday = 'Satuday',
+  Sunday = 'Sunday'
+}
+export enum WeekDayTodos {
+  MonTodos = 'MonTodos',
+  TueTodos = 'TueTodos',
+  WedTodos = 'WedTodos',
+  ThuTodos = 'ThuTodos',
+  FriTodos = 'FriTodos',
+  SatTodos = 'SatTodos',
+  SunTodos = 'SunTodos'
 }
 
 export enum TodosStatus {
   BacklogTodos = 'BacklogTodos',
   ActiveTodos = 'ActiveTodos',
   CompletedTodos = 'CompletedTodos'
+}
+
+export enum TodosView {
+  KanbanView = 'KanbanView',
+  WeeklyView = 'WeeklyView'
 }

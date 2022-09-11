@@ -3,6 +3,9 @@ import Head from 'next/head'
 import Image from 'next/image'
 import { useState } from 'react'
 
+import { FaCalendarWeek } from 'react-icons/fa'
+import { BsFillKanbanFill } from 'react-icons/bs'
+
 import { DragDropContext, Draggable, Droppable, DropResult, resetServerContext } from 'react-beautiful-dnd'
 import Column from '../components/column'
 
@@ -10,15 +13,23 @@ import InputField from '../components/inputfield'
 import TodoApp from '../components/todoapp'
 import Todos from '../components/todos'
 
-import { Status, Todo, TodosStatus, WeekDay } from '../models/todo'
+import { Status, Todo, TodosStatus, TodosView, WeekDay, WeekDayTodos } from '../models/todo'
 import styles from '../styles/Home.module.css'
 
 
 const Home: NextPage = () => {
   const [name, setName] = useState<string>('')
+  const [view, setView] = useState<TodosView>(TodosView.KanbanView)
   const [backlogTodos, setBacklogTodos] = useState<Todo[]>([])
   const [activeTodos, setActiveTodos] = useState<Todo[]>([])
   const [completedTodos, setCompletedTodos] = useState<Todo[]>([])
+  const [monTodos, setMonTodos] = useState<Todo[]>([])
+  const [tueTodos, setTueTodos] = useState<Todo[]>([])
+  const [wedTodos, setWedTodos] = useState<Todo[]>([])
+  const [thuTodos, setThuTodos] = useState<Todo[]>([])
+  const [friTodos, setFriTodos] = useState<Todo[]>([])
+  const [satTodos, setSatTodos] = useState<Todo[]>([])
+  const [sunTodos, setSunTodos] = useState<Todo[]>([])
 
   //  type Actions = 
   //    { type: 'add', payload: string }
@@ -41,6 +52,7 @@ const Home: NextPage = () => {
   //  const [state, dispatch] = useReducer(TodoReducer, [])
   //
 
+
   const addNewTodo = (e: React.FormEvent) => {
     e.preventDefault()
     if (name) {
@@ -52,9 +64,12 @@ const Home: NextPage = () => {
         isDone: false
       }
       setBacklogTodos([...backlogTodos, newTodo])
+      setMonTodos([...monTodos, newTodo])
       setName('')
     }
   }
+
+
 
   const onDragEndHandler = (result: DropResult) => {
     const { destination, source } = result
@@ -65,25 +80,95 @@ const Home: NextPage = () => {
     let add,
       backlog = backlogTodos,
       active = activeTodos,
-      complete = completedTodos
+      complete = completedTodos,
+      mon = monTodos,
+      tue = tueTodos,
+      wed = wedTodos,
+      thu = thuTodos,
+      fri = friTodos,
+      sat = satTodos,
+      sun = sunTodos
 
-    if (source.droppableId === TodosStatus.BacklogTodos) {
-      add = backlogTodos[source.index]
-      backlog.splice(source.index, 1)
-    } else if (source.droppableId === TodosStatus.ActiveTodos) {
-      add = active[source.index]
-      active.splice(source.index, 1)
-    } else {
-      add = complete[source.index]
-      complete.splice(source.index, 1)
+    switch (source.droppableId) {
+      case TodosStatus.BacklogTodos:
+        add = backlogTodos[source.index]
+        backlog.splice(source.index, 1)
+        break
+      case TodosStatus.ActiveTodos:
+        add = active[source.index]
+        active.splice(source.index, 1)
+        break
+      case TodosStatus.CompletedTodos:
+        add = complete[source.index]
+        complete.splice(source.index, 1)
+        break
+
+      case WeekDayTodos.MonTodos:
+        add = mon[source.index]
+        mon.splice(source.index, 1)
+        break
+      case WeekDayTodos.TueTodos:
+        add = tue[source.index]
+        tue.splice(source.index, 1)
+        break
+      case WeekDayTodos.WedTodos:
+        add = wed[source.index]
+        wed.splice(source.index, 1)
+        break
+      case WeekDayTodos.ThuTodos:
+        add = thu[source.index]
+        thu.splice(source.index, 1)
+        break
+      case WeekDayTodos.FriTodos:
+        add = fri[source.index]
+        fri.splice(source.index, 1)
+        break
+      case WeekDayTodos.SatTodos:
+        add = sat[source.index]
+        sat.splice(source.index, 1)
+        break
+      case WeekDayTodos.SunTodos:
+        add = sun[source.index]
+        sun.splice(source.index, 1)
+        break
     }
 
-    if (destination.droppableId === TodosStatus.BacklogTodos) {
-      backlog.splice(destination.index, 0, add)
-    } else if (destination.droppableId === TodosStatus.ActiveTodos) {
-      active.splice(destination.index, 0, add)
-    } else {
-      complete.splice(destination.index, 0, add)
+
+
+    if (add) {
+      switch (destination.droppableId) {
+        case TodosStatus.BacklogTodos:
+          backlog.splice(destination.index, 0, add)
+          break
+        case TodosStatus.ActiveTodos:
+          active.splice(destination.index, 0, add)
+          break
+        case TodosStatus.CompletedTodos:
+          complete.splice(destination.index, 0, add)
+          break
+
+        case WeekDayTodos.MonTodos:
+          monTodos.splice(destination.index, 0, add)
+          break
+        case WeekDayTodos.TueTodos:
+          tueTodos.splice(destination.index, 0, add)
+          break
+        case WeekDayTodos.WedTodos:
+          wedTodos.splice(destination.index, 0, add)
+          break
+        case WeekDayTodos.ThuTodos:
+          thuTodos.splice(destination.index, 0, add)
+          break
+        case WeekDayTodos.FriTodos:
+          friTodos.splice(destination.index, 0, add)
+          break
+        case WeekDayTodos.SatTodos:
+          satTodos.splice(destination.index, 0, add)
+          break
+        case WeekDayTodos.SunTodos:
+          sunTodos.splice(destination.index, 0, add)
+          break
+      }
     }
 
     setBacklogTodos(backlog)
@@ -101,19 +186,46 @@ const Home: NextPage = () => {
           <link rel="icon" href="/favicon.ico" />
         </Head>
         <div className='flex flex-col items-center  min-h-screen pt-10'>
-          <h2 className='text-4xl font-bold'>Action</h2>
+          <h2 className='text-4xl font-bold'>Taskify</h2>
+          <div className='flex gap-3'>
+            <span
+              onClick={() => setView(TodosView.KanbanView)}
+              className={`text-3xl text-gray-300 cursor-pointer ${view === TodosView.KanbanView ? 'text-gray-900' : ''}`}>
+              <BsFillKanbanFill />
+            </span>
+            <span
+              onClick={() => setView(TodosView.WeeklyView)}
+              className={`text-3xl text-gray-300 cursor-pointer ${view === TodosView.WeeklyView ? 'text-gray-900' : ''}`}>
+              <FaCalendarWeek />
+            </span>
+          </div>
           <InputField
             name={name}
             setName={setName}
             addNewTodo={addNewTodo}
           />
           <Todos
+            view={view}
             backlogTodos={backlogTodos}
             setBacklogTodos={setBacklogTodos}
             activeTodos={activeTodos}
             setActiveTodos={setActiveTodos}
             completedTodos={completedTodos}
             setCompletedTodos={setCompletedTodos}
+            monTodos={monTodos}
+            setMonTodos={setMonTodos}
+            tueTodos={tueTodos}
+            setTueTodos={setTueTodos}
+            wedTodos={wedTodos}
+            setWedTodos={setWedTodos}
+            thuTodos={thuTodos}
+            setThuTodos={setThuTodos}
+            friTodos={friTodos}
+            setFriTodos={setFriTodos}
+            satTodos={satTodos}
+            setSatTodos={setSatTodos}
+            sunTodos={sunTodos}
+            setSunTodos={setSunTodos}
           />
         </div>
       </div>
