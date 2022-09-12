@@ -1,8 +1,14 @@
 # A simple Drag-and-Drop Todo App
 
-![Basic todo screenshot](./doc/basic-todoapp.png)
-![Kanban view screenshot](./doc/kanban-view.png)
-![Weekly view screenshot](./doc/weekly-view.png) 
+Features:   
+- Two views: Kanban View and Weekly View 
+- Create, Update, delete task. 
+- Drag and drop task to update their status.
+
+![Basic todo screenshot](./doc/media/basic-todoapp.png)
+![Kanban view screenshot](./doc/media/kanban-view.png)
+![Weekly view screenshot](./doc/media/weekly-view.png) 
+![Demo](./doc/media/demo.mov)
 
 ## Tech Stack   
 - [Next.js](https://nextjs.org/) - The React Framework for Production 
