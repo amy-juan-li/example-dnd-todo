@@ -1,14 +1,20 @@
 # A simple Drag-and-Drop Todo App
 
 Features:   
-- Two views: Kanban View and Weekly View 
-- Create, Update, delete task. 
-- Drag and drop task to update their status.
+- Two views to toggle: Kanban View and Weekly View. 
+- You can create new task by press enter key after filling the content in the input box. 
+- You can easily update and delete task by clicking the icon buttons on the right side of each task. 
+- You can drag and drop task to update their status.
 
 ![Basic todo screenshot](./doc/media/basic-todoapp.png)
 ![Kanban view screenshot](./doc/media/kanban-view.png)
 ![Weekly view screenshot](./doc/media/weekly-view.png) 
-![Demo](./doc/media/demo.mov)
+
+
+https://user-images.githubusercontent.com/93111441/189701112-e328a8e6-1ff3-4cb4-8697-55603095af0d.mov
+
+
+
 
 ## Tech Stack   
 - [Next.js](https://nextjs.org/) - The React Framework for Production 
@@ -18,7 +24,7 @@ Features:
 - [react-beautiful-dnd](https://github.com/atlassian/react-beautiful-dnd) - A React library to create dnd effects. 
 
 ## Project Structure 
-<img src='./doc/project-structure.png' width='300px' alt='Project structure screenshot'/>
+<img src='./doc/media/project-structure.png' width='300px' alt='Project structure screenshot'/>
 
 ## Getting Started
 
