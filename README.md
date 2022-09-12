@@ -40,14 +40,16 @@ Two modes:
   - `development` is used by `yarn dev`
   - `production` is used by `yarn build` 
 
-When running building, environment variables are loaded from the following files in your project root:
+Environment Variables Load Order
+Environment variables are looked up in the following places, in order, stopping once the variable is found.
 
-```
-.env                # loaded in all cases
-.env.local          # loaded in all cases, ignored by git
-.env.[mode]         # only loaded in specified env mode
-.env.[mode].local   # only loaded in specified env mode, ignored by git
-```
+`process.env`  
+`.env.$(NODE_ENV).local`  
+`.env.local` (Not checked when NODE_ENV is test.)  
+`.env.$(NODE_ENV)`  
+`.env`
+
+Learn more: https://nextjs.org/docs/basic-features/environment-variables
 
 ## About me
 - [Portfolio Website](https://www.amyjuanli.com/) - A place to write blog and display my works. 
