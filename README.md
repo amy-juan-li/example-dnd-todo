@@ -27,12 +27,20 @@ https://user-images.githubusercontent.com/93111441/189701112-e328a8e6-1ff3-4cb4-
 <img src='./doc/media/project-structure.png' width='300px' alt='Project structure screenshot'/>
 
 ## Getting Started
+First, git clone this repo, and install packages:  
 
-First, run the development server:
+```bash
+yarn
+```
+![Yarn install packages screenshot](./doc/media/yarn-screenshot.png)
+ 
+Then, run the development server:
 
 ```bash
 yarn dev
 ```
+![Yarn run dev server screenshot](./doc/media/yarn-dev-screenshot.png)
+
 Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
 
 ### Modes and Environment Variables
