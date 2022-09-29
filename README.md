@@ -7,11 +7,8 @@ Features:
 - You can drag and drop task to update their status.
 
 ![Basic todo screenshot](./doc/media/basic-todoapp.png)
-![Kanban view screenshot](./doc/media/kanban-view.png)
-![Weekly view screenshot](./doc/media/weekly-view.png) 
-
-
-https://user-images.githubusercontent.com/93111441/189701112-e328a8e6-1ff3-4cb4-8697-55603095af0d.mov
+![dnd-](https://user-images.githubusercontent.com/93111441/192956119-395a4772-6c7d-4f10-b4a3-3cac41f37809.gif) 
+<img src='./doc/media/weekly-view.png' width='700px' alt='weekly task  view'/>
 
 
 
