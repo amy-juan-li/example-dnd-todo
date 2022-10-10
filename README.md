@@ -56,6 +56,9 @@ Environment variables are looked up in the following places, in order, stopping 
 
 Learn more: https://nextjs.org/docs/basic-features/environment-variables
 
+## Relevant articles
+- [Build a Markdown Editor Using Electron, React, TypeScript, CodeMirror 6, and Remark](https://medium.com/r/?url=https%3A%2F%2Famy-juan-li.medium.com%2Fbuild-a-markdown-editor-using-electron-reactjs-vite-codemirror-and-remark-e551d91b6233)
+
 ## About me
 - [Portfolio Website](https://www.amyjuanli.com/) - A place to write blog and display my works. 
 - [Medium Blog](https://amy-juan-li.medium.com/) - Another blogging platform. 
