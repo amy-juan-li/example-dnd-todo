@@ -24,14 +24,17 @@ Features:
 <img src='./doc/media/project-structure.png' width='300px' alt='Project structure screenshot'/>
 
 ## Getting Started
-First, git clone this repo, and install packages:  
+- Git clone this repo
+- Install all dependencies:  
 
 ```bash
 yarn
+# or 
+yarn install
 ```
 ![Yarn install packages screenshot](./doc/media/yarn-screenshot.png)
  
-Then, run the development server:
+- Run the development server:
 
 ```bash
 yarn dev
@@ -57,6 +60,7 @@ Environment variables are looked up in the following places, in order, stopping 
 Learn more: https://nextjs.org/docs/basic-features/environment-variables
 
 ## Relevant articles
+- (Learn to Build NextJS Applications)(https://medium.com/r/?url=https%3A%2F%2Famy-juan-li.medium.com%2Flist%2Fdb243e7bdf05)
 - [Build a Markdown Editor Using Electron, React, TypeScript, CodeMirror 6, and Remark](https://medium.com/r/?url=https%3A%2F%2Famy-juan-li.medium.com%2Fbuild-a-markdown-editor-using-electron-reactjs-vite-codemirror-and-remark-e551d91b6233)
 
 ## About me
